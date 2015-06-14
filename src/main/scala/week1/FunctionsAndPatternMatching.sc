@@ -23,17 +23,17 @@ object FunctionsAndPattenrMatching {
   val ints = new Generator[Int] {
     def generate = scala.util.Random.nextInt()
   }                                               //> ints  : week1.Generator[Int] = week1.FunctionsAndPattenrMatching$$anonfun$ma
-                                                  //| in$1$$anon$1@38d8415
+                                                  //| in$1$$anon$1@36d650da
 
   // ints map {x => x > 0}
-  val bools = for (x <- ints) yield x >= 100000000//> bools  : week1.Generator[Boolean] = week1.Generator$$anon$3@37403a09
+  val bools = for (x <- ints) yield x >= 100000000//> bools  : week1.Generator[Boolean] = week1.Generator$$anon$3@25b80053
 
-  bools.generate                                  //> res4: Boolean = true
+  bools.generate                                  //> res4: Boolean = false
 
   def pairs[T, U](t: Generator[U], u: Generator[T]) =
     for (x <- t; y <- u) yield (x, y)             //> pairs: [T, U](t: week1.Generator[U], u: week1.Generator[T])week1.Generator[(
                                                   //| U, T)]
-  pairs(ints, ints).generate                      //> res5: (Int, Int) = (1483591554,-2083416121)
+  pairs(ints, ints).generate                      //> res5: (Int, Int) = (1612540751,-1662923248)
 
   def choose[T](lo: Int, hi: Int): Generator[Int] =
     for (x <- ints) yield lo + Math.abs(x) % (hi - lo)
@@ -57,7 +57,28 @@ object FunctionsAndPattenrMatching {
     tail <- lists
   } yield head :: tail                            //> nonEmptyList: => week1.Generator[List[Int]]
 
-  lists.generate                                  //> res7: List[Int] = List(-1127596355, 353678996, -951611935, 131418361)
+  lists.generate                                  //> res7: List[Int] = List(-2024951215, -1072415076, -964126538)
+
+  trait Tree
+  case class Inner(left: Tree, right: Tree) extends Tree
+  case class Leaf(x: Int) extends Tree
+
+  def leafs: Generator[Leaf] = for {
+    x <- ints
+  } yield Leaf(x)                                 //> leafs: => week1.Generator[week1.FunctionsAndPattenrMatching.Leaf]
+
+  def inners: Generator[Inner] = for {
+    l <- trees
+    r <- trees
+  } yield Inner(l, r)                             //> inners: => week1.Generator[week1.FunctionsAndPattenrMatching.Inner]
+
+  def trees: Generator[Tree] = for {
+    cutoff <- bools
+    tree <- if (cutoff) leafs else inners
+  } yield tree                                    //> trees: => week1.Generator[week1.FunctionsAndPattenrMatching.Tree]
+  
+  trees.generate                                  //> res8: week1.FunctionsAndPattenrMatching.Tree = Inner(Leaf(1489385933),Inner
+                                                  //| (Leaf(-1856767617),Leaf(1730057328)))
 }
 
 trait Generator[+T] {
