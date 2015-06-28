@@ -38,7 +38,8 @@ libraryDependencies ++= Seq(
   "org.scalatest"     	%% "scalatest"        			% "2.2.4"  % "test",
   "com.github.scopt" 	%% "scopt" 						% "3.3.0",
   "org.json4s" 	      	%% "json4s-jackson"   			% "3.2.11",
-  "com.typesafe.akka" 	%% "akka-stream-experimental" 	% "1.0-RC3"
+  "com.typesafe.akka" 	%% "akka-stream-experimental" 	% "1.0-RC3",
+  "io.reactivex" 		%% "rxscala" 					% "0.25.0"
 )
 
 testOptions ++= Seq(
