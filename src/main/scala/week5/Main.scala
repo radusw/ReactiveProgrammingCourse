@@ -11,7 +11,7 @@ object Main extends App {
   val system = ActorSystem("MySystem")
   val t = system.actorOf(Props[TransferMain], name = "TransferMain")
 
-  Thread.sleep(1000)
+  Thread.sleep(2000)
   system.shutdown()
 }
 
@@ -31,6 +31,9 @@ class TransferMain extends Actor {
     context.become(LoggingReceive {
       case Bank.Done =>
         println("success")
+        context.stop(self)
+      case Bank.Failed =>
+        println("failed")
         context.stop(self)
     })
   }
