@@ -7,6 +7,7 @@ version := "1.0"
 scalaVersion := "2.11.6"
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+resolvers += "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"
 
 javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
 
@@ -39,7 +40,8 @@ libraryDependencies ++= Seq(
   "com.github.scopt" 	%% "scopt" 						% "3.3.0",
   "org.json4s" 	      	%% "json4s-jackson"   			% "3.2.11",
   "com.typesafe.akka" 	%% "akka-stream-experimental" 	% "1.0-RC3",
-  "io.reactivex" 		%% "rxscala" 					% "0.25.0"
+  "io.reactivex" 		%% "rxscala" 					% "0.25.0",
+  "com.typesafe.akka" 	%% "akka-actor" 				% "2.3.11"
 )
 
 testOptions ++= Seq(
