@@ -28,7 +28,7 @@ object FutureExample extends App {
 		chf <- chfQuote
 		if isProfitable(usd, chf)
 	} yield {
-    println("one if the 2 futures - " + Thread.currentThread().getId)
+    println("one of the 2 futures threads - " + Thread.currentThread().getId)
     (usd+chf)/2
   }
 
